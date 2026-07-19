@@ -11,6 +11,26 @@ spring:
     password: ${mysql.password}
     url: jdbc:mysql://${mysql.host}:${mysql.port}/${mysql.database}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# Knife4j
+knife4j:
+  enable: true
+  openapi:
+    title: blog项目接口文档
+    description: "这是个人博客网站blog的接口文档"
+    version: v1.0
+    license: Apache 2.0
+    license-url: https://stackoverflow.com/
+    terms-of-service-url: https://stackoverflow.com/
+    group:
+      blog-admin:
+        group-name: blog-admin
+        api-rule: package
+        api-rule-resources:
+          - com.blog.controller
 
 # MyBatisPlus
 mybatis-plus:

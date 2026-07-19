@@ -3,6 +3,8 @@ package com.blog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+//@EnableSwagger2WebMvc
+//@EnableKnife4j
 @SpringBootApplication
 public class BlogApiApplication {
 

@@ -25,5 +25,5 @@ public class BasePO {
     /**
      * 删除标志[0]未删除 [当前时间戳]已删除
      */
-    private Long isDeleted;
+    private Long isDelete;
 }
