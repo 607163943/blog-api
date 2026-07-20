@@ -7,6 +7,8 @@ import com.blog.pojo.vo.CategoryVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 分类Mapper接口
  */
@@ -21,4 +23,11 @@ public interface CategoryMapper extends BaseMapper<Category> {
      * @return 分页结果
      */
     Page<CategoryVO> selectPageWithCondition(Page<Category> page, @Param("categoryName") String categoryName);
+
+    /**
+     * 查询所有分类数据
+     *
+     * @return 所有未删除的分类
+     */
+    List<CategoryVO> selectAll();
 }

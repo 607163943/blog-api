@@ -56,4 +56,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                 .in(Category::getId, ids)
                 .update();
     }
+
+    @Override
+    public List<CategoryVO> listAll() {
+        return baseMapper.selectAll();
+    }
 }

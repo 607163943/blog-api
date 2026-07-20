@@ -75,4 +75,16 @@ public class CategoryController {
         categoryService.delete(java.util.Arrays.asList(ids));
         return Result.success();
     }
+
+    /**
+     * 获取所有分类数据
+     *
+     * @return 所有分类数据
+     */
+    @ApiOperation("获取所有分类数据")
+    @GetMapping("/all")
+    public Result<List<CategoryVO>> listAll() {
+        List<CategoryVO> data = categoryService.listAll();
+        return Result.success(data);
+    }
 }

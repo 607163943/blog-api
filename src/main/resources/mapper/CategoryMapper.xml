@@ -12,4 +12,11 @@
         ORDER BY create_time DESC
     </select>
 
+    <select id="selectAll" resultType="com.blog.pojo.vo.CategoryVO">
+        SELECT id, category_name, create_time, update_time
+        FROM tb_category
+        WHERE is_delete = 0
+        ORDER BY create_time DESC
+    </select>
+
 </mapper>
