@@ -25,6 +25,14 @@ public interface TagMapper extends BaseMapper<Tag> {
     Page<TagVO> selectPageWithCondition(Page<Tag> page, @Param("tagName") String tagName);
 
     /**
+     * 根据ID查询标签数据
+     *
+     * @param id 标签ID
+     * @return 标签数据
+     */
+    TagVO selectTagById(@Param("id") Long id);
+
+    /**
      * 查询所有标签数据
      *
      * @return 所有未删除的标签

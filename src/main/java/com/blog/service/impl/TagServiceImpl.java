@@ -58,6 +58,11 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
+    public TagVO getTagById(Long id) {
+        return baseMapper.selectTagById(id);
+    }
+
+    @Override
     public List<TagVO> listAll() {
         return baseMapper.selectAll();
     }

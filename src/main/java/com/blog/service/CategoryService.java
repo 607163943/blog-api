@@ -45,6 +45,14 @@ public interface CategoryService extends IService<Category> {
     void delete(List<Long> ids);
 
     /**
+     * 根据ID获取分类数据
+     *
+     * @param id 分类ID
+     * @return 分类数据
+     */
+    CategoryVO getCategoryById(Long id);
+
+    /**
      * 获取所有分类数据
      *
      * @return 所有未删除的分类

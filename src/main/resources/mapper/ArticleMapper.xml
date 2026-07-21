@@ -30,7 +30,43 @@
                 WHERE atr2.tag_id = #{tagId} AND atr2.is_delete = 0
             )
         </if>
+        <if test="articleStatus != null">
+            AND a.article_status = #{articleStatus}
+        </if>
         ORDER BY a.create_time DESC
+    </select>
+
+    <resultMap id="ArticleDetailVOMap" type="com.blog.pojo.vo.ArticleDetailVO">
+        <id column="id" property="id"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="article_cover" property="articleCover"/>
+        <result column="article_summary" property="articleSummary"/>
+        <result column="article_content" property="articleContent"/>
+        <result column="article_status" property="articleStatus"/>
+        <collection property="tagIds" ofType="long" column="id" select="selectTagIdsByArticleId"/>
+    </resultMap>
+
+    <select id="selectArticleById" resultMap="ArticleDetailVOMap">
+        SELECT id, article_title, category_id, article_cover,
+               article_summary, article_content, article_status
+        FROM tb_article
+        WHERE id = #{id} AND is_delete = 0
+    </select>
+
+    <select id="selectTagIdsByArticleId" resultType="long">
+        SELECT tag_id
+        FROM tb_article_tag_relation
+        WHERE article_id = #{id} AND is_delete = 0
+    </select>
+
+    <select id="selectNewArticleCountByMonth" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(create_time, '%Y-%m') AS month,
+               COUNT(*) AS count
+        FROM tb_article
+        WHERE is_delete = 0 AND create_time &gt;= #{startTime}
+        GROUP BY month
+        ORDER BY month
     </select>
 
     <select id="selectTagsByArticleId" resultType="string">

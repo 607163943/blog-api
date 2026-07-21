@@ -4,6 +4,7 @@ import com.blog.pojo.dto.ArticlePageDTO;
 import com.blog.pojo.dto.ArticleSaveDTO;
 import com.blog.pojo.dto.ArticleStatusUpdateDTO;
 import com.blog.pojo.dto.ArticleUpdateDTO;
+import com.blog.pojo.vo.ArticleDetailVO;
 import com.blog.pojo.vo.ArticleVO;
 import com.blog.result.PageResult;
 import com.blog.result.Result;
@@ -36,7 +37,7 @@ public class ArticleController {
     @GetMapping
     public Result<PageResult<List<ArticleVO>>> page(ArticlePageDTO dto) {
         PageResult<List<ArticleVO>> data = articleService.page(dto.getPage(), dto.getPageSize(),
-                dto.getArticleTitle(), dto.getCategoryId(), dto.getTagId());
+                dto.getArticleTitle(), dto.getCategoryId(), dto.getTagId(),dto.getArticleStatus());
         return Result.success(data);
     }
 
@@ -77,6 +78,19 @@ public class ArticleController {
     public Result<Object> delete(@RequestBody Long[] ids) {
         articleService.delete(java.util.Arrays.asList(ids));
         return Result.success();
+    }
+
+    /**
+     * 根据ID获取文章数据
+     *
+     * @param id 文章ID
+     * @return 文章详情数据
+     */
+    @ApiOperation("根据ID获取文章数据")
+    @GetMapping("/{id}")
+    public Result<ArticleDetailVO> getById(@PathVariable Long id) {
+        ArticleDetailVO data = articleService.getArticleById(id);
+        return Result.success(data);
     }
 
     /**

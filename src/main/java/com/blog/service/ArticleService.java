@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.blog.pojo.dto.ArticleSaveDTO;
 import com.blog.pojo.dto.ArticleUpdateDTO;
 import com.blog.pojo.po.Article;
+import com.blog.pojo.vo.ArticleDetailVO;
 import com.blog.pojo.vo.ArticleVO;
 import com.blog.result.PageResult;
 
@@ -22,9 +23,10 @@ public interface ArticleService extends IService<Article> {
      * @param articleTitle 文章标题（模糊匹配）
      * @param categoryId   文章分类ID
      * @param tagId        标签ID
+     * @param articleStatus 文章状态（0-草稿，1-发布）
      * @return 分页结果
      */
-    PageResult<List<ArticleVO>> page(Integer page, Integer pageSize, String articleTitle, Long categoryId, Long tagId);
+    PageResult<List<ArticleVO>> page(Integer page, Integer pageSize, String articleTitle, Long categoryId, Long tagId,Integer articleStatus);
 
     /**
      * 新增文章
@@ -54,4 +56,12 @@ public interface ArticleService extends IService<Article> {
      * @param articleStatus 新文章状态
      */
     void updateStatus(Long id, Integer articleStatus);
+
+    /**
+     * 根据ID获取文章数据
+     *
+     * @param id 文章ID
+     * @return 文章详情数据
+     */
+    ArticleDetailVO getArticleById(Long id);
 }

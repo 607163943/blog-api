@@ -45,6 +45,14 @@ public interface TagService extends IService<Tag> {
     void delete(List<Long> ids);
 
     /**
+     * 根据ID获取标签数据
+     *
+     * @param id 标签ID
+     * @return 标签数据
+     */
+    TagVO getTagById(Long id);
+
+    /**
      * 获取所有标签数据
      *
      * @return 所有未删除的标签

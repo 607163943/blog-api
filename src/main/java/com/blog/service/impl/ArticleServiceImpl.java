@@ -10,6 +10,7 @@ import com.blog.pojo.dto.ArticleSaveDTO;
 import com.blog.pojo.dto.ArticleUpdateDTO;
 import com.blog.pojo.po.Article;
 import com.blog.pojo.po.ArticleTagRelation;
+import com.blog.pojo.vo.ArticleDetailVO;
 import com.blog.pojo.vo.ArticleVO;
 import com.blog.result.PageResult;
 import com.blog.service.ArticleService;
@@ -30,9 +31,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private final ArticleTagRelationMapper articleTagRelationMapper;
 
     @Override
-    public PageResult<List<ArticleVO>> page(Integer page, Integer pageSize, String articleTitle, Long categoryId, Long tagId) {
+    public PageResult<List<ArticleVO>> page(Integer page, Integer pageSize, String articleTitle, Long categoryId, Long tagId, Integer articleStatus) {
         Page<Article> pageParam = new Page<>(page, pageSize);
-        Page<ArticleVO> pageResult = baseMapper.selectPageWithCondition(pageParam, articleTitle, categoryId, tagId);
+        Page<ArticleVO> pageResult = baseMapper.selectPageWithCondition(pageParam, articleTitle, categoryId, tagId, articleStatus);
         return new PageResult<>(pageResult.getRecords(), pageResult.getTotal());
     }
 
@@ -101,7 +102,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             long timestamp = System.currentTimeMillis();
             LambdaUpdateWrapper<ArticleTagRelation> wrapper = new LambdaUpdateWrapper<>();
             wrapper.set(ArticleTagRelation::getIsDelete, timestamp)
-                   .eq(ArticleTagRelation::getArticleId, dto.getId());
+                    .eq(ArticleTagRelation::getArticleId, dto.getId());
             articleTagRelationMapper.update(null, wrapper);
 
             if (dto.getTagIds().length > 0) {
@@ -128,7 +129,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         // 软删除文章-标签关联
         LambdaUpdateWrapper<ArticleTagRelation> wrapper = new LambdaUpdateWrapper<>();
         wrapper.set(ArticleTagRelation::getIsDelete, timestamp)
-               .in(ArticleTagRelation::getArticleId, ids);
+                // 避免已删除数据对未删除数据的影响
+                .eq(ArticleTagRelation::getIsDelete, CommonConstant.NOT_DELETED)
+                .in(ArticleTagRelation::getArticleId, ids);
         articleTagRelationMapper.update(null, wrapper);
     }
 
@@ -151,6 +154,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
 
         super.updateById(article);
+    }
+
+    @Override
+    public ArticleDetailVO getArticleById(Long id) {
+        return baseMapper.selectArticleById(id);
     }
 
     /**

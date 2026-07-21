@@ -25,6 +25,14 @@ public interface CategoryMapper extends BaseMapper<Category> {
     Page<CategoryVO> selectPageWithCondition(Page<Category> page, @Param("categoryName") String categoryName);
 
     /**
+     * 根据ID查询分类数据
+     *
+     * @param id 分类ID
+     * @return 分类数据
+     */
+    CategoryVO selectCategoryById(@Param("id") Long id);
+
+    /**
      * 查询所有分类数据
      *
      * @return 所有未删除的分类

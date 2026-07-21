@@ -77,6 +77,19 @@ public class TagController {
     }
 
     /**
+     * 根据ID获取标签数据
+     *
+     * @param id 标签ID
+     * @return 标签数据
+     */
+    @ApiOperation("根据ID获取标签数据")
+    @GetMapping("/{id}")
+    public Result<TagVO> getById(@PathVariable Long id) {
+        TagVO data = tagService.getTagById(id);
+        return Result.success(data);
+    }
+
+    /**
      * 获取所有标签数据
      *
      * @return 所有标签数据

@@ -58,6 +58,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
+    public CategoryVO getCategoryById(Long id) {
+        return baseMapper.selectCategoryById(id);
+    }
+
+    @Override
     public List<CategoryVO> listAll() {
         return baseMapper.selectAll();
     }

@@ -12,6 +12,12 @@
         ORDER BY create_time DESC
     </select>
 
+    <select id="selectTagById" resultType="com.blog.pojo.vo.TagVO">
+        SELECT id, tag_name, create_time, update_time
+        FROM tb_tag
+        WHERE id = #{id} AND is_delete = 0
+    </select>
+
     <select id="selectAll" resultType="com.blog.pojo.vo.TagVO">
         SELECT id, tag_name, create_time, update_time
         FROM tb_tag

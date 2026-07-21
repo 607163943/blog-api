@@ -77,6 +77,19 @@ public class CategoryController {
     }
 
     /**
+     * 根据ID获取分类数据
+     *
+     * @param id 分类ID
+     * @return 分类数据
+     */
+    @ApiOperation("根据ID获取分类数据")
+    @GetMapping("/{id}")
+    public Result<CategoryVO> getById(@PathVariable Long id) {
+        CategoryVO data = categoryService.getCategoryById(id);
+        return Result.success(data);
+    }
+
+    /**
      * 获取所有分类数据
      *
      * @return 所有分类数据

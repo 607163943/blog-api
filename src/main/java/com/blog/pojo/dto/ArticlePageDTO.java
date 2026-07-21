@@ -31,4 +31,10 @@ public class ArticlePageDTO extends BasePageDTO {
      */
     @ApiModelProperty("标签ID")
     private Long tagId;
+
+    /**
+     * 文章状态（0-草稿，1-发布）
+     */
+    @ApiModelProperty("文章状态（0-草稿，1-发布）")
+    private Integer articleStatus;
 }
