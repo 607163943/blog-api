@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.UserMapper">
+
+    <select id="selectByUsername" resultType="com.blog.pojo.po.AdminUser">
+        SELECT id, username, password, nickname, create_time, update_time, is_delete
+        FROM tb_admin_user
+        WHERE username = #{username} AND is_delete = 0
+    </select>
+
+</mapper>

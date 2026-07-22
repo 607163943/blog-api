@@ -32,4 +32,12 @@ public class Result<T> {
     public static <T> Result<T> success() {
         return Result.of(200, null, "success");
     }
+
+    public static <T> Result<T> error(String msg) {
+        return Result.of(500, null, msg);
+    }
+
+    public static <T> Result<T> error(Integer code, String msg) {
+        return Result.of(code, null, msg);
+    }
 }
